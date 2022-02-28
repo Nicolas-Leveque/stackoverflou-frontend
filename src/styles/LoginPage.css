@@ -9,6 +9,7 @@
 }
 
 .box-controller {
+	background-color: white;
 	border-radius: 15px;
 	visibility: visible;
 	display: -webkit-box;
@@ -54,7 +55,7 @@
 }
 
 .inner-container {
-	transition: visibility 0.2s ease-out;
+	transition: visibility 0.3s ease-out;
 }
 
 .inner-container.show {

@@ -41,6 +41,16 @@ const RegisterBox = () => {
 					/>
 				</div>
 				<div className="input-group">
+					<label htmlFor="nickname">Nom d'utilisateur</label>
+					<input
+						type="text"
+						name="nickname"
+						className="login-input"
+						placeholder="Nom"
+						onChange={(e) => setNickName(e.target.value)}
+					/>
+				</div>
+				<div className="input-group">
 					<label htmlFor="firstname">Prénom</label>
 					<input
 						type="text"
@@ -60,16 +70,7 @@ const RegisterBox = () => {
 						onChange={(e) => setLastName(e.target.value)}
 					/>
 				</div>
-				<div className="input-group">
-					<label htmlFor="nickname">Surnom</label>
-					<input
-						type="text"
-						name="nickname"
-						className="login-input"
-						placeholder="Nom"
-						onChange={(e) => setNickName(e.target.value)}
-					/>
-				</div>
+
 				<div className="input-group">
 					<label htmlFor="password">Mot de passe</label>
 					<input

@@ -1,26 +1,28 @@
 import { useState } from 'react';
-import { useSelector } from 'react-redux';
-// import { useHistory } from 'react-router-dom';
-import { selectAuth } from '../../features/auth/authSlice';
+import { useSelector, useDispatch } from 'react-redux';
+import { selectAuth, onLogin } from '../../features/auth/authSlice';
+import { useLoginMutation } from '../../services/auth';
 import '../../styles/LoginPage.css';
 
 const LoginBox = () => {
 	const [email, setEmail] = useState('');
 	const [password, setPassword] = useState('');
+	const [isFetching, setIsFetching] = useState(false);
 	const [isLoginOk, setIsLoginOk] = useState(true);
 
 	const user = useSelector(selectAuth);
-	// let history = useHistory();
+	const [login] = useLoginMutation();
+	const dispatch = useDispatch();
 
-	const submitLogin = (e) => {
+	const submitLogin = async (e) => {
 		e.preventDefault();
-		const obj = {
+		const loginObject = {
 			email,
 			password,
 		};
-		console.log(obj);
-		console.log(user);
-		setIsLoginOk(true);
+		login(loginObject)
+			.unwrap()
+			.then((credentials) => dispatch(onLogin(credentials)));
 	};
 
 	return (
@@ -53,6 +55,7 @@ const LoginBox = () => {
 				<button type="submit" value="Submit" className="login-btn">
 					Login
 				</button>
+				{isFetching && <p>Login en cours</p>}
 			</form>
 		</div>
 	);
