@@ -1,5 +1,7 @@
 import React, { useState } from 'react';
-// import { useHistory } from 'react-router-dom';
+import { useDispatch } from 'react-redux';
+import { useRegisterMutation } from '../../services/auth';
+import { onRegister } from '../../features/auth/authSlice';
 
 import '../../styles/LoginPage.css';
 
@@ -12,17 +14,26 @@ const RegisterBox = () => {
 	const [passwordCheck, setPasswordCheck] = useState('');
 	const [isRegisterOk, setIsRegisterOk] = useState(true);
 
+	const [register, { isLoading }] = useRegisterMutation();
+	const dispatch = useDispatch();
+
 	const submitRegister = (e) => {
 		e.preventDefault();
-		const obj = {
+		if (password !== passwordCheck) {
+			console.log('erreur');
+			return;
+		}
+		const registerObj = {
 			email,
 			firstName,
 			lastName,
 			nickName,
 			password,
-			passwordCheck,
 		};
-		console.log(obj);
+		console.log(registerObj);
+		register(registerObj)
+			.unwrap()
+			.then((credentials) => dispatch(onRegister(credentials)));
 		setIsRegisterOk(true);
 	};
 
@@ -97,6 +108,7 @@ const RegisterBox = () => {
 				<button type="submit" className="login-btn">
 					Register
 				</button>
+				{isLoading && <p>Login en cours</p>}
 			</form>
 		</div>
 	);

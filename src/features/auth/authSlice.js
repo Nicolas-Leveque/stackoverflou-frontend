@@ -17,35 +17,15 @@ export const authSlice = createSlice({
 			state = action.payload;
 			localStorage.setItem('user', state.nickName);
 			localStorage.setItem('token', state.token);
-			console.log('reducer', state);
+		},
+		onRegister: (state, action) => {
+			state = action.payload;
+			localStorage.setItem('user', state.nickName);
+			localStorage.setItem('token', state.token);
 		},
 	},
 });
 
 export const selectAuth = (state) => state.auth;
 
-export const { onLogin } = authSlice.actions;
-
-// export const login = (loginObject) => async (dispatch) => {
-// 	try {
-// 		fetch(`${process.env.REACT_APP_BACKEND}/user/login`, {
-// 			method: 'post',
-// 			headers: {
-// 				'Content-Type': 'application/json',
-// 			},
-// 			body: JSON.stringify(loginObject),
-// 		})
-// 			.then((response) => {
-// 				if (!response.ok) {
-// 					throw new Error('Erreur de connexion');
-// 				}
-// 				return response.json();
-// 			})
-// 			.then((json) => {
-// 				dispatch(onLogin(json));
-// 				console.log('end login', json);
-// 			});
-// 	} catch (e) {
-// 		return console.log(e);
-// 	}
-// };
+export const { onLogin, onRegister } = authSlice.actions;

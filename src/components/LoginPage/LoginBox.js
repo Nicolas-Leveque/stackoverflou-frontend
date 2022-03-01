@@ -1,17 +1,15 @@
 import { useState } from 'react';
-import { useSelector, useDispatch } from 'react-redux';
-import { selectAuth, onLogin } from '../../features/auth/authSlice';
+import { useDispatch } from 'react-redux';
+import { onLogin } from '../../features/auth/authSlice';
 import { useLoginMutation } from '../../services/auth';
 import '../../styles/LoginPage.css';
 
 const LoginBox = () => {
 	const [email, setEmail] = useState('');
 	const [password, setPassword] = useState('');
-	const [isFetching, setIsFetching] = useState(false);
 	const [isLoginOk, setIsLoginOk] = useState(true);
 
-	const user = useSelector(selectAuth);
-	const [login] = useLoginMutation();
+	const [login, { isLoading }] = useLoginMutation();
 	const dispatch = useDispatch();
 
 	const submitLogin = async (e) => {
@@ -55,7 +53,7 @@ const LoginBox = () => {
 				<button type="submit" value="Submit" className="login-btn">
 					Login
 				</button>
-				{isFetching && <p>Login en cours</p>}
+				{isLoading && <p>Login en cours</p>}
 			</form>
 		</div>
 	);
